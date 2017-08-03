@@ -18,6 +18,6 @@ chrome.exe --allow-file-access-from-files --disable-web-security
 Тип ответа от сервера(success.json, progress.json, error.json) можно поменять в раскрывающемся списке ```<select id="responceType">```.  
 
 Немного о регулярных выражениях:
-![Reg](https://hsto.org/storage2/aba/894/99d/aba89499d7eee0089944de8f40da08f6.jpg)  
+![Reg](https://i.stack.imgur.com/MC2wS.png)  
 
 В задании не было подробно указано, по каким стандартам и правилам валидировать email или учитывать ли В'ячеславов и Д'артаньянов при валидации ФИО, поэтому я не стал все усложнять и писать слишком сложные регулярки. Мне кажется что input type="email" для валидации почты вполне достаточно, а самый лучший способ проверить email - отправить туда письмо. Для телефона я использовал [маску](https://github.com/firstopinion/formatter.js), поэтому проверял номер только на количество цифр и сумму.
