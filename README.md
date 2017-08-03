@@ -15,7 +15,7 @@ chrome.exe --allow-file-access-from-files --disable-web-security
 ```
 Это нужно, так как иначе XMLHttp ругается на "Cross origin requests are only supported for HTTP" при запуске без локального сервера.  
 
-Тип ответа от сервера(success.json, progress.json, error.json) можно поменять в раскрывающемся списке <select id="responceType">.  
+Тип ответа от сервера(success.json, progress.json, error.json) можно поменять в раскрывающемся списке ```<select id="responceType">```.  
 
 Немного о регулярных выражениях:
 ![Reg](https://hsto.org/storage2/aba/894/99d/aba89499d7eee0089944de8f40da08f6.jpg)  
