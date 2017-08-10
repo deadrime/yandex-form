@@ -12,22 +12,20 @@ const MyForm = {
 		let phone = form['input-phone'].value;
 		let email = form['input-email'].value;
 		return {fio,phone,email};
-		
 	},
 	validate(data){
 		let isValid = true;
 		let errorFields = [];
-		
 		//ФИО
-		let reg = /[^A-zА-я\ \-]/ // разрешены только буквы, пробелы и тире
-		let words = data['fio'].split(' ')
+		let reg = /[^A-zА-я\ \-]/; // разрешены только буквы, пробелы и тире
+		let words = data['fio'].split(' ');
 		let rightAmount = words.every((word) => word.length>0); // Хотя бы одна буква в слове
 		let wordCount =  words.length;  // количество слов
-		if (wordCount !==3 || reg.test(data['fio']) || !rightAmount) { 
+		if (wordCount !==3 || reg.test(data['fio']) || !rightAmount) {
 			isValid = false;
 			errorFields.push('input-fio');
 		}
-		
+
 		//email
 		//Логин может состоять из латинских символов, цифр, одинарного дефиса или точки. Он должен начинаться с буквы, заканчиваться буквой или цифрой.
 		reg = /^[A-z]+[A-z\d]*[\.\-]?[A-z\d]+$/;
@@ -52,7 +50,7 @@ const MyForm = {
 	},
 	sendData(data) {
 		let xhr = new XMLHttpRequest();
-		let urlParams = Object.keys(data).map(i => i+'='+ encodeURIComponent(data[i])).join('&'); 
+		let urlParams = Object.keys(data).map(i => i+'='+ encodeURIComponent(data[i])).join('&');
 		xhr.open('GET', serverAddr + '?'+urlParams, true); // наверное это излишне, но будь сервер настоящим - нужно было бы передать данные с формы
 		xhr.setRequestHeader('Content-Type','application/json');
 		xhr.send();
@@ -73,7 +71,7 @@ const MyForm = {
 						dataFromServer.innerHTML = xhr.responseText;
 						break;
 					case 'progress':
-						var now = new Date();
+						let now = new Date();
 						resultContainer.className = 'progress';
 						submitBtn.className = 'btn btn--progress';
 						submitBtn.setAttribute('disabled','');
@@ -90,11 +88,11 @@ const MyForm = {
 		}
 	},
 	submit() {
-		let data = this.getData();		
+		let data = this.getData();
 		let valRes = this.validate(data);
 		let isValid = valRes['isValid'], errorFields= valRes['errorFields'];
-			
-		if (!isValid) {  
+
+		if (!isValid) {
 			Array.from(form).map(i => { // расставление классов
 				if (errorFields.includes(i.id)) {
 					i.classList.add('error');
@@ -107,11 +105,10 @@ const MyForm = {
 		else {
 			Array.from(form).map(i => i.classList.remove('error'));
 			let dataToServer = document.getElementById('dataToServer');
-			let resultStr = JSON.stringify(data);
-			dataToServer.innerHTML = resultStr;
+            dataToServer.innerHTML = JSON.stringify(data);
 			this.sendData(data);
 		}
-	},	
+	},
 	autocompleteEmail() { // подумал что ошибок будет меньше если помочь пользователю выбрать почтовый домен
 		let datalist = document.getElementById('autocmpl');
 		let listItems = datalist.getElementsByTagName('option');
@@ -123,7 +120,7 @@ const MyForm = {
 			});
 		}
 	}
-}
+};
 
 let emailInput = form['input-email'];
 emailInput.addEventListener('input', MyForm.autocompleteEmail);
