@@ -54,6 +54,7 @@
 }
 .btn {
   font-size: 16px;
+  line-height: 22px;
   margin-top: 10px;
   padding: 10px;
   border: none;
@@ -70,14 +71,14 @@
   right: 0;
   bottom: 0;
   content: "";
-  width: 16px;
-  height: 16px;
+  width: 1em;
+  height: 1em;
   background: center center no-repeat;
   background-clip: border-box;
   background-size: cover;
   border-radius: 50%;
   border: 0.15em solid;
-  border-color: currentColor currentColor currentColor transparent;
+  border-color: #000 #000 #000 transparent;
 }
 .btn--progress {
   background: rgba(255,219,77,0.502);
