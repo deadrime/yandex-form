@@ -16,22 +16,23 @@ const MyForm = {
 	validate(data){
 		let isValid = true;
 		let errorFields = [];
+
 		//ФИО
-		let reg = /[^A-zА-я\ \-]/; // разрешены только буквы, пробелы и тире
-		let words = data['fio'].split(' ');
-		let rightAmount = words.every((word) => word.length>0); // Хотя бы одна буква в слове
-		let wordCount =  words.length;  // количество слов
-		if (wordCount !==3 || reg.test(data['fio']) || !rightAmount) {
-			isValid = false;
-			errorFields.push('input-fio');
-		}
+        // 3 слова, хотя бы одна буква, слово может содержать один дефис, не может заканчиться на что-то кроме буквы
+		let reg = /^([А-я]+(\-?[А-я]+)*\s+[А-я]+(\-?[А-я]+)*\s+[А-я]+(\-?[А-я]+)*)$/;
+        let fio = data['fio'];
+        let validFio = reg.test(fio);
+        if (!validFio) {
+            isValid = false;
+            errorFields.push('input-fio');
+        }
 
 		//email
 		//Логин может состоять из латинских символов, цифр, одинарного дефиса или точки. Он должен начинаться с буквы, заканчиваться буквой или цифрой.
 		reg = /^[A-z]+[A-z\d]*[\.\-]?[A-z\d]+$/;
 		let mailDomain = data['email'].split('@')[1];
 		let login = data['email'].split('@')[0];
-		let validMail = reg.test(login); //полное соответствие регулярному
+		let validMail = reg.test(login); //соответствие регулярному
 		if (!validMail || !yandexMails.includes(mailDomain)) { // ошибка валидации или домен не от яндекса
 			isValid = false;
 			errorFields.push('input-email');
@@ -63,7 +64,6 @@ const MyForm = {
 				if (submitBtn.hasAttribute('disabled')) {
 					submitBtn.removeAttribute('disabled');
 				}
-
 				switch(res.status) {
 					case 'success':
 						resultContainer.className = 'success';
