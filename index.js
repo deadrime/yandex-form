@@ -13,6 +13,11 @@ const MyForm = {
 		let email = form['input-email'].value;
 		return {fio,phone,email};
 	},
+	setData(data) {
+        form['input-fio'].value = data.fio;
+        form['input-phone'].value = data.phone;
+        form['input-email'].value =  data.email;
+	},
 	validate(data){
 		let isValid = true;
 		let errorFields = [];
@@ -130,8 +135,24 @@ form.addEventListener('submit', (e) => {
 	MyForm.submit();
 });
 
+const setForm = document.getElementById("set-data");
+
+setForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let fio = setForm.fio.value;
+    let email = setForm.email.value;
+    let phone = setForm.phone.value;
+    MyForm.setData({ fio, email, phone })
+});
+
 // маска телефона, используя formatted.js
-let formatted = new Formatter(document.getElementById('input-phone'), {
+let formatted_phone = new Formatter(document.getElementById('input-phone'), {
   'pattern': '+7({{999}}){{999}}-{{99}}-{{99}}',
   'persistent': true
+});
+
+// для set-data
+let formatted_phone_set = new Formatter(document.getElementById('set-phone'), {
+    'pattern': '+7({{999}}){{999}}-{{99}}-{{99}}',
+    'persistent': true
 });
